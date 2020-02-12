@@ -4,7 +4,7 @@
 
 struct UserInfo;
 
-class SingleSimpleServer
+class SingleIOCPServer
 {
 	static constexpr int RECV_BUFFER_SIZE = 100;
 
@@ -12,8 +12,8 @@ public:
 	SingleSimpleServer();
 	~SingleSimpleServer();
 	
-	DISABLED_COPY(SingleSimpleServer)
-	DISABLED_MOVE(SingleSimpleServer)
+	DISABLED_COPY(SingleIOCPServer)
+	DISABLED_MOVE(SingleIOCPServer)
 
 	void InitNetwork();
 	void Run();
@@ -24,16 +24,16 @@ private:
 	_Pos xPos;
 };
 
-class SimpleServer
+class IOCPServer
 {
 	static constexpr int RECV_BUFFER_SIZE = 100;
 
 public:
-	SimpleServer();
-	~SimpleServer();
+	IOCPServer();
+	~IOCPServer();
 	
-	DISABLED_COPY(SimpleServer)
-	DISABLED_MOVE(SimpleServer)
+	DISABLED_COPY(IOCPServer)
+	DISABLED_MOVE(IOCPServer)
 
 	void InitNetwork();
 	void Run();
@@ -52,24 +52,3 @@ private:
 	std::mutex keyLock;
 };
 
-namespace ERROR_UTIL
-{
-	_NORETURN static void Error(const std::string_view msg)
-	{
-		LPVOID lpMsgBuf;
-		int errorCode = WSAGetLastError();
-		FormatMessage(
-			FORMAT_MESSAGE_ALLOCATE_BUFFER |
-			FORMAT_MESSAGE_FROM_SYSTEM,
-			NULL, errorCode,
-			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-			(LPTSTR)&lpMsgBuf, 0, NULL);
-
-		std::cout << "[" << msg << "(" << errorCode << ")] "
-			<< ((LPCTSTR)lpMsgBuf) << "\n";
-
-		LocalFree(lpMsgBuf);
-
-		while (true) {}
-	}
-}

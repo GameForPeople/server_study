@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Define">
+      <UniqueIdentifier>{dc8f3900-b967-4f57-ade7-7ac7c0bdf5b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInfo">
+      <UniqueIdentifier>{e83f076d-cc0f-4088-80ec-6d2faa4c14ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SimpleServer">
+      <UniqueIdentifier>{bcf7d71a-1e55-441e-9590-d5b80965c94a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MemoryUnit">
+      <UniqueIdentifier>{15f49d6a-bd43-4d2b-8e16-4556625d19b0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Define</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInfo.cpp">
+      <Filter>UserInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="IOCPServer.cpp">
+      <Filter>SimpleServer</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MemoryUnit.cpp">
+      <Filter>MemoryUnit</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\global_header.hh">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInfo.h">
+      <Filter>UserInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="IOCPServer.h">
+      <Filter>SimpleServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils.hpp">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryUnit.h">
+      <Filter>MemoryUnit</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
