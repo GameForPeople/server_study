@@ -13,6 +13,9 @@
     <Filter Include="MemoryUnit">
       <UniqueIdentifier>{15f49d6a-bd43-4d2b-8e16-4556625d19b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{f6f70555-db87-4d11-863b-c75a0f12ff2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -27,6 +30,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MemoryUnit.cpp">
       <Filter>MemoryUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkManager.cpp">
+      <Filter>Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="MemoryUnit.h">
       <Filter>MemoryUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkManager.h">
+      <Filter>Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

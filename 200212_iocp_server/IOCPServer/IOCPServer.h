@@ -16,13 +16,16 @@ public:
 	DISABLED_COPY(IOCPServer)
 	DISABLED_MOVE(IOCPServer)
 
-	void InitNetwork();
 	void Run();
 
 	void AcceptThreadFunction();
 	void WorkerThreadFunction();
 
 private:
+	void MakePacketFromRecvData(UserInfo* pUserInfo, int recvSize);
+
+private:
+	
 	SOCKET listenSocket;
 	HANDLE hIOCP;
 	
