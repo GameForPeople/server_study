@@ -1,8 +1,10 @@
 #pragma once
 
-#include "../Utils.hpp"
+#include "../global_header.hh"
+#include "../BaseSingleton.h"
 
 struct MemoryUnit;
+struct TaskUnit;
 struct UserInfo;
 
 class NetworkManager
@@ -22,4 +24,5 @@ public:
 private:
 	MemoryUnit* PopSendMemoryUnit();
 	concurrency::concurrent_queue<MemoryUnit*> sendMemoryPool;
+	concurrency::concurrent_queue<TaskUnit*> taskMemoryPool;
 };

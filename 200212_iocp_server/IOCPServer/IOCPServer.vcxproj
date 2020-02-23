@@ -156,16 +156,22 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TaskUnit.cpp" />
+    <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="UserInfo.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\BaseSingleton.h" />
     <ClInclude Include="..\global_header.hh" />
-    <ClInclude Include="..\Utils.hpp" />
     <ClInclude Include="IOCPServer.h" />
     <ClInclude Include="MemoryUnit.h" />
     <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TaskUnit.h" />
+    <ClInclude Include="TimerManager.h" />
     <ClInclude Include="UserInfo.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

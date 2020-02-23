@@ -25,7 +25,6 @@ private:
 	void MakePacketFromRecvData(UserInfo* pUserInfo, int recvSize);
 
 private:
-	
 	SOCKET listenSocket;
 	HANDLE hIOCP;
 	

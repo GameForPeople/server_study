@@ -13,8 +13,6 @@ enum class MEMORY_UNIT_TYPE
 
 struct MemoryUnit
 {
-	static constexpr int DATA_BUFFER_SIZE = 128;
-
 public:
 	OVERLAPPED overlapped;
 	WSABUF wsaBuffer;

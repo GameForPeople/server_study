@@ -1,8 +1,11 @@
 #include "stdafx.h"
 
 #include "MemoryUnit.h"
+#include "TaskUnit.h"
 #include "UserInfo.h"
 #include "NetworkManager.h"
+
+#include "Utils.h"
 
 NetworkManager::NetworkManager()
 	: sendMemoryPool()

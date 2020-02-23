@@ -17,6 +17,7 @@ namespace USING
 {
 	using _Key = short;
 	using _Pos = short;
+	using _Time = unsigned long long;
 }; using namespace USING;
 
 enum class DIRECTION : char
@@ -30,6 +31,7 @@ enum class DIRECTION : char
 constexpr unsigned short SERVER_LISTEN_PORT_NUMBER = 9000;
 constexpr _Pos MAX_MAP_SIZE = 15;
 constexpr _Key MAX_USER = 10000;
+constexpr int DATA_BUFFER_SIZE = 128;
 #pragma endregion
 
 #pragma region [protocol]

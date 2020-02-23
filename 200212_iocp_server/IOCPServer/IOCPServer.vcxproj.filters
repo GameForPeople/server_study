@@ -34,6 +34,15 @@
     <ClCompile Include="NetworkManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="TaskUnit.cpp">
+      <Filter>MemoryUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Define</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -48,13 +57,22 @@
     <ClInclude Include="IOCPServer.h">
       <Filter>SimpleServer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Utils.hpp">
-      <Filter>Define</Filter>
-    </ClInclude>
     <ClInclude Include="MemoryUnit.h">
       <Filter>MemoryUnit</Filter>
     </ClInclude>
     <ClInclude Include="NetworkManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskUnit.h">
+      <Filter>MemoryUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BaseSingleton.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
   </ItemGroup>

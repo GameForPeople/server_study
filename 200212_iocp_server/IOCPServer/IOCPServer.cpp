@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "../Utils.hpp"
+#include "Utils.h"
 
 //#include "UserInfo.h"
 #include "IOCPServer.h"
@@ -227,7 +227,6 @@ void IOCPServer::WorkerThreadFunction()
 	}
 }
 
-
 void IOCPServer::MakePacketFromRecvData(UserInfo* pUserInfo, int recvSize)
 {
 	char* pBuf = pUserInfo->memoryUnit.dataBuffer;
@@ -254,7 +253,6 @@ void IOCPServer::MakePacketFromRecvData(UserInfo* pUserInfo, int recvSize)
 			pUserInfo->loadedSize = 0;
 			recvSize -= required;
 			pBuf += required;
-			packetSize = 0;
 			packetSize = 0;
 		}
 		// 패킷을 완성할 수 없을 때
