@@ -4,6 +4,11 @@
 
 TimerManager::TimerManager()
 {
+	for (int i = 0; i < TIMER_MEMORY_POOL_SIZE; ++i)
+	{
+		timerMemoryPool.push(new TimerUnit());
+	}
+
 	timerThread = static_cast<std::thread>([&](){ this->TimerThread(); });
 }
 

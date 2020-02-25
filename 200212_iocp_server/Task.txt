@@ -1,0 +1,17 @@
+A. IOCP Server
+	0. DB 미적용
+		- Query 서버 적용 고려
+		- 유저 접속 시, 로그인 처리 추가 필요
+		- 로그 아웃 시, 처리 필요
+		- DB는 MySQL 예상
+
+	1. 비동기 accept 고려.
+	
+	2. Server 종료할 때, IOCP Server 소멸자..
+	
+	3. Server Key 못 받는 상황일 때, Client에게 메세지 전달
+	4. 위의 3 상황일 때, TimerManager? 혹은 Client Out 시 처리 적용
+	
+	5. Recv, Send 에서 예외처리가 없음(IO Pending 고려 필요)
+	
+	6.  

@@ -158,7 +158,7 @@
     </ClCompile>
     <ClCompile Include="TaskUnit.cpp" />
     <ClCompile Include="TimerManager.cpp" />
-    <ClCompile Include="UserInfo.cpp" />
+    <ClCompile Include="UserUnit.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,8 +170,11 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TaskUnit.h" />
     <ClInclude Include="TimerManager.h" />
-    <ClInclude Include="UserInfo.h" />
+    <ClInclude Include="UserUnit.h" />
     <ClInclude Include="Utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Task.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

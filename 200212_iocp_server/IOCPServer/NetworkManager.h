@@ -4,8 +4,7 @@
 #include "../BaseSingleton.h"
 
 struct MemoryUnit;
-struct TaskUnit;
-struct UserInfo;
+struct UserUnit;
 
 class NetworkManager
 	: public TSingleton<NetworkManager>
@@ -18,11 +17,10 @@ public:
 	~NetworkManager();
 
 public:
-	void SendPacket(UserInfo* pUser, char* packetData);
+	void SendPacket(UserUnit* pUser, char* packetData);
 	void PushSendMemoryUnit(MemoryUnit* const memoryUnit);
 
 private:
 	MemoryUnit* PopSendMemoryUnit();
 	concurrency::concurrent_queue<MemoryUnit*> sendMemoryPool;
-	concurrency::concurrent_queue<TaskUnit*> taskMemoryPool;
 };

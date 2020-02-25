@@ -4,9 +4,6 @@
     <Filter Include="Define">
       <UniqueIdentifier>{dc8f3900-b967-4f57-ade7-7ac7c0bdf5b2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserInfo">
-      <UniqueIdentifier>{e83f076d-cc0f-4088-80ec-6d2faa4c14ce}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SimpleServer">
       <UniqueIdentifier>{bcf7d71a-1e55-441e-9590-d5b80965c94a}</UniqueIdentifier>
     </Filter>
@@ -16,13 +13,13 @@
     <Filter Include="Managers">
       <UniqueIdentifier>{f6f70555-db87-4d11-863b-c75a0f12ff2b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MemoryUnit\UserInfo">
+      <UniqueIdentifier>{e83f076d-cc0f-4088-80ec-6d2faa4c14ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Define</Filter>
-    </ClCompile>
-    <ClCompile Include="UserInfo.cpp">
-      <Filter>UserInfo</Filter>
     </ClCompile>
     <ClCompile Include="IOCPServer.cpp">
       <Filter>SimpleServer</Filter>
@@ -43,6 +40,9 @@
     <ClCompile Include="TimerManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="UserUnit.cpp">
+      <Filter>MemoryUnit\UserInfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -50,9 +50,6 @@
     </ClInclude>
     <ClInclude Include="..\global_header.hh">
       <Filter>Define</Filter>
-    </ClInclude>
-    <ClInclude Include="UserInfo.h">
-      <Filter>UserInfo</Filter>
     </ClInclude>
     <ClInclude Include="IOCPServer.h">
       <Filter>SimpleServer</Filter>
@@ -75,5 +72,11 @@
     <ClInclude Include="TimerManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
+    <ClInclude Include="UserUnit.h">
+      <Filter>MemoryUnit\UserInfo</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Task.txt" />
   </ItemGroup>
 </Project>

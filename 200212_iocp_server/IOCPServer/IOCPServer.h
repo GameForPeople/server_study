@@ -2,7 +2,9 @@
 
 #include "../global_header.hh"
 
-#include "UserInfo.h" //자주 엑세스하는 만큼, 포인터 성능 저하 방지.
+#include "UserUnit.h" //자주 엑세스하는 만큼, 포인터 성능 저하 방지.
+
+struct TaskUnit;
 
 class IOCPServer
 {
@@ -22,7 +24,7 @@ public:
 	void WorkerThreadFunction();
 
 private:
-	void MakePacketFromRecvData(UserInfo* pUserInfo, int recvSize);
+	void MakePacketFromRecvData(UserUnit* pUserUnit, int recvSize);
 
 private:
 	SOCKET listenSocket;
@@ -36,5 +38,5 @@ private:
 
 	concurrency::concurrent_queue<_Key> keyPool;
 	concurrency::concurrent_queue<SOCKET> waitingUserPool;
-	std::array<UserInfo, MAX_USER> userCont;
+	std::array<UserUnit, MAX_USER> userCont;
 };

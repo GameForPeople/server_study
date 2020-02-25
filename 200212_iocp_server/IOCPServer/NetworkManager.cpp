@@ -2,7 +2,7 @@
 
 #include "MemoryUnit.h"
 #include "TaskUnit.h"
-#include "UserInfo.h"
+#include "UserUnit.h"
 #include "NetworkManager.h"
 
 #include "Utils.h"
@@ -25,7 +25,7 @@ NetworkManager::~NetworkManager()
 	}
 }
 
-void NetworkManager::SendPacket(UserInfo* pUser, char* packetData)
+void NetworkManager::SendPacket(UserUnit* pUser, char* packetData)
 {
 	auto sendMemoryUnit = PopSendMemoryUnit();
 	
@@ -48,7 +48,7 @@ MemoryUnit* NetworkManager::PopSendMemoryUnit()
 	MemoryUnit* retMemoryUnit;
 	while (!sendMemoryPool.try_pop(retMemoryUnit))
 	{
-		std::cout << "메모리를 할당합니다.";
+		std::cout << "Send Memory Unit를 할당합니다.";
 		for (int i = 0; i < ADD_SEND_MEMORY_POOL_SIZE; ++i)
 		{
 			retMemoryUnit = new MemoryUnit(MEMORY_UNIT_TYPE::SEND_TO_CLIENT);
@@ -63,3 +63,4 @@ void NetworkManager::PushSendMemoryUnit(MemoryUnit* const memoryUnit)
 	sendMemoryPool.push(memoryUnit);
 	// memoryUnit = nullptr;
 }
+

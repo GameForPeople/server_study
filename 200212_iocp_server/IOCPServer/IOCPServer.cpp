@@ -1,11 +1,15 @@
 #include "stdafx.h"
 #include "Utils.h"
 
-//#include "UserInfo.h"
+//#include "UserUnit.h"
 #include "IOCPServer.h"
 
 #include "MemoryUnit.h"
+#include "TaskUnit.h"
+
 #include "NetworkManager.h"
+#include "TimerManager.h"
+#include "TaskManager.h"
 
 IOCPServer::IOCPServer()
 	: listenSocket()
@@ -20,11 +24,14 @@ IOCPServer::IOCPServer()
 	, waitingUserPool()
 	, userCont()
 {
+	TimerManager::GetInstance();
+	NetworkManager::GetInstance();
+	TaskManager::GetInstance();
+
 	for (int i = 0; i < MAX_USER; ++i) { keyPool.push(i); }
 	for (auto& user : userCont)
 	{
 	}
-
 	// InitNetwork
 	{
 #pragma region [ 윈속 초기화 ]
@@ -99,6 +106,7 @@ IOCPServer::IOCPServer()
 
 IOCPServer::~IOCPServer()
 {
+	// ?? 이 코드봐 미쳤나봐
 	workerThreadLoopFlag = false;
 	{
 		using namespace std::chrono_literals;
@@ -110,7 +118,14 @@ IOCPServer::~IOCPServer()
 		}
 	}
 
-	//for (auto& thread : workerThreadCont) { thread.join(); };
+	{
+		SOCKET socket{};
+		while (waitingUserPool.try_pop(socket))
+		{
+			closesocket(socket);
+		}
+	}
+
 	closesocket(listenSocket);
 	WSACleanup();
 }
@@ -159,9 +174,6 @@ void IOCPServer::AcceptThreadFunction()
 
 		if (!keyPool.try_pop(key))
 		{
-			// std::cout << "[ MAXCLIENT 접속이 거부되었습니다. IP : " << inet_ntoa(clientAddr.sin_addr) << "  PORT : " << ntohs(clientAddr.sin_port) << "  ] " << std::endl;
-			// closesocket(acceptedSocket);
-
 			// 클라단에서 대기처리
 			waitingUserPool.push(acceptedSocket);
 			continue;
@@ -171,9 +183,6 @@ void IOCPServer::AcceptThreadFunction()
 
 		// 소켓과 입출력 완료 포트 연결
 		CreateIoCompletionPort(reinterpret_cast<HANDLE>(acceptedSocket), hIOCP, key, 0);
-
-		// 비동기 입출력의 시작.
-		
 
 		/*
 			Get User Info From DB
@@ -186,6 +195,8 @@ void IOCPServer::AcceptThreadFunction()
 		// 
 		// userCont[key].socket = acceptedSocket;
 		// userCont[key].posX = posX;
+
+		// 비동기 입출력의 시작.
 	}
 }
 
@@ -216,7 +227,7 @@ void IOCPServer::WorkerThreadFunction()
 			break;
 			case MEMORY_UNIT_TYPE::RECV_FROM_CLIENT:
 			{
-
+				MakePacketFromRecvData(reinterpret_cast<UserUnit*>(pMemoryUnit), cbTransferred);
 			}
 			break;
 			default:
@@ -227,30 +238,36 @@ void IOCPServer::WorkerThreadFunction()
 	}
 }
 
-void IOCPServer::MakePacketFromRecvData(UserInfo* pUserInfo, int recvSize)
+void IOCPServer::MakePacketFromRecvData(UserUnit* pUserUnit, int recvSize)
 {
-	char* pBuf = pUserInfo->memoryUnit.dataBuffer;
+	char* pBuf = pUserUnit->memoryUnit.dataBuffer;
 	int packetSize{ 0 }; 
 
-	if (0 < pUserInfo->loadedSize) packetSize = pUserInfo->loadedBuffer[0];
+	if (0 < pUserUnit->loadedSize) { packetSize = pUserUnit->taskUnit->buffer[0]; }
+	else 
+	{
+		pUserUnit->taskUnit = TaskManager::GetInstance().PopTaskUnit(); 
+		pUserUnit->taskUnit->key = pUserUnit->key;
+	}
 
 	while (recvSize > 0)
 	{
 		if (packetSize == 0) packetSize = static_cast<int>(pBuf[0]);
 
 		// 처리해야하는 패킷 사이즈 중에서, 이전에 이미 처리한 패킷 사이즈를 빼준다.
-		int required = (packetSize) - (pUserInfo->loadedSize);
+		int required = (packetSize) - (pUserUnit->loadedSize);
 
 		// 패킷을 완성할 수 있을 때 (요청해야할 사이즈보다, 남은 사이즈가 크거나 같을 때)
 		if (recvSize >= required)
 		{
-			memcpy(pUserInfo->loadedBuffer + pUserInfo->loadedSize, pBuf, required);
+			memcpy(pUserUnit->taskUnit->buffer + pUserUnit->loadedSize, pBuf, required);
 
 			//-------------------------------------------------------------------------------
-			// ProcessPacket(pClient); 
+			TaskManager::GetInstance().ProduceTask(TaskManager::TASK_PROCESS_CASE::MAIN_ZONE, pUserUnit->taskUnit);
 			//-------------------------------------------------------------------------------
 
-			pUserInfo->loadedSize = 0;
+			pUserUnit->taskUnit = nullptr;
+			pUserUnit->loadedSize = 0;
 			recvSize -= required;
 			pBuf += required;
 			packetSize = 0;
@@ -258,8 +275,8 @@ void IOCPServer::MakePacketFromRecvData(UserInfo* pUserInfo, int recvSize)
 		// 패킷을 완성할 수 없을 때
 		else
 		{
-			memcpy(pUserInfo->loadedBuffer + pUserInfo->loadedSize, pBuf, recvSize);
-			pUserInfo->loadedSize += recvSize;
+			memcpy(pUserUnit->taskUnit->buffer + pUserUnit->loadedSize, pBuf, recvSize);
+			pUserUnit->loadedSize += recvSize;
 			break;
 			//restSize = 0; 
 		}

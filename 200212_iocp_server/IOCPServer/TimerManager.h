@@ -11,7 +11,8 @@ enum class TIMER_TYPE
 
 enum class TIME : unsigned long long
 {
-
+	SECOND = 1000,
+	MINUATE = 60000
 };
 
 struct TimerUnit
@@ -28,6 +29,9 @@ struct TimerUnit
 class TimerManager
 	: public TSingleton<TimerManager>
 {
+	static constexpr int TIMER_MEMORY_POOL_SIZE = 100000;
+	static constexpr int ADD_TIMER_MEMORY_POOL_SIZE = 10000;
+
 public:
 	TimerManager();
 	~TimerManager();
